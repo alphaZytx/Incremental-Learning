@@ -3,74 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Incremental Learning Research Journey</title>
+    <title>Project Proposal: Smart Rehearsal in Continual Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            padding: 40px 20px;
+            background-color: #f4f7f6;
+            color: #333;
         }
         
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             background: white;
             border-radius: 15px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
         }
         
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             padding-bottom: 20px;
-            border-bottom: 3px solid #667eea;
+            border-bottom: 2px solid #e0e0e0;
         }
         
         .header h1 {
             color: #2c3e50;
-            font-size: 2.5em;
+            font-size: 2.8em;
             margin-bottom: 10px;
         }
         
         .header p {
             color: #7f8c8d;
             font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        .header .meta-info {
+            font-size: 0.9em;
+            color: #555;
         }
         
         .flowchart {
             display: flex;
             flex-direction: column;
-            gap: 30px;
-            position: relative;
+            gap: 40px;
         }
         
         .phase {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
+            text-align: center;
         }
         
         .phase-title {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(135deg, #4a69bd, #6a89cc);
             color: white;
             padding: 12px 30px;
-            border-radius: 25px;
+            border-radius: 50px;
             font-weight: bold;
-            font-size: 1.3em;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            font-size: 1.4em;
+            margin-bottom: 25px;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(74, 105, 189, 0.2);
         }
         
         .options {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
         }
         
         .option-box {
@@ -78,99 +81,85 @@
             border: 2px solid #e9ecef;
             border-radius: 12px;
             padding: 20px;
-            width: 200px;
-            text-align: center;
+            width: 250px;
+            text-align: left;
             transition: all 0.3s ease;
-            position: relative;
         }
-        
+
         .option-box:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        
-        .explored {
-            border-color: #ffc107;
-            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
-        }
-        
-        .selected {
-            border-color: #28a745;
-            background: linear-gradient(135deg, #d4edda, #a8e6cf);
-            border-width: 3px;
-        }
-        
-        .rejected {
-            border-color: #dc3545;
-            background: linear-gradient(135deg, #f8d7da, #ffb3b3);
-            opacity: 0.7;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.07);
         }
         
         .option-title {
             font-weight: bold;
             color: #2c3e50;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 1.1em;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-title span {
+            margin-right: 8px;
+            font-size: 1.5em;
         }
         
         .option-desc {
-            font-size: 0.9em;
+            font-size: 0.95em;
             color: #6c757d;
-            line-height: 1.4;
+            line-height: 1.5;
         }
-        
-        .status-badge {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: bold;
-            color: white;
+
+        .justification {
+            background: #f8f9fa;
+            border-left: 4px solid #b2bec3;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+            text-align: left;
+            font-size: 0.9em;
         }
-        
-        .explored .status-badge {
-            background: #ffc107;
-        }
-        
-        .selected .status-badge {
-            background: #28a745;
-        }
-        
-        .rejected .status-badge {
-            background: #dc3545;
+
+        .justification strong {
+            color: #2d3436;
         }
         
         .arrow {
-            font-size: 2em;
-            color: #667eea;
-            margin: 10px 0;
+            font-size: 2.5em;
+            color: #4a69bd;
+            margin: 20px 0;
         }
         
         .final-solution {
-            background: linear-gradient(135deg, #28a745, #20c997);
-            color: white;
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            color: #1b5e20;
             padding: 30px;
             border-radius: 15px;
             text-align: center;
             margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.3);
         }
         
         .final-solution h2 {
             margin-bottom: 15px;
-            font-size: 1.8em;
+            font-size: 2em;
+            color: #2e7d32;
         }
         
-        .final-solution p {
+        .final-solution .hypothesis {
             font-size: 1.1em;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            background: rgba(255,255,255,0.6);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .hypothesis strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
         }
         
         .components {
@@ -182,266 +171,216 @@
         }
         
         .component {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
+            background: #4caf50;
+            color: white;
+            padding: 20px;
             border-radius: 10px;
             text-align: center;
-            min-width: 150px;
+            flex: 1;
+            min-width: 200px;
         }
         
         .reasoning {
-            background: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 20px;
-            margin: 20px 0;
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 25px;
             border-radius: 8px;
+            text-align: left;
         }
         
         .reasoning h3 {
-            color: #1976d2;
+            color: #e65100;
             margin-bottom: 10px;
         }
         
-        .roadmap {
-            background: #f1f8e9;
-            border: 2px solid #8bc34a;
+        .roadmap, #references {
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
             border-radius: 12px;
-            padding: 25px;
-            margin-top: 30px;
+            padding: 30px;
+            margin-top: 50px;
         }
         
-        .roadmap h3 {
-            color: #558b2f;
+        .roadmap h3, #references h3 {
+            color: #333;
             text-align: center;
-            margin-bottom: 20px;
+            font-size: 1.8em;
+            margin-bottom: 30px;
         }
         
         .roadmap-steps {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            list-style: none;
+            padding: 0;
         }
         
-        .roadmap-step {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #8bc34a;
+        .roadmap-steps li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
         }
         
         .step-number {
-            background: #8bc34a;
+            background: #4a69bd;
             color: white;
-            width: 25px;
-            height: 25px;
+            min-width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            margin-right: 10px;
+            margin-right: 15px;
+            margin-top: 5px;
+        }
+        
+        .step-content strong {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        #references ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #references li {
+            margin-bottom: 15px;
+            padding-left: 20px;
+            text-indent: -20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🧠 Incremental Learning Research Journey</h1>
-            <p>From Problem Exploration to Novel Solution Development</p>
+            <h1>🧠 Project Progress & Research Journey</h1>
+            <p>From a Broad Survey of Continual Learning to a Novel Project Hypothesis</p>
+            <div class="meta-info">
+                <strong>Student:</strong> [Your Name] <br>
+                <strong>Professor:</strong> [Professor's Name] <br>
+                <strong>Date:</strong> September 11, 2025
+            </div>
         </div>
         
         <div class="flowchart">
-            <!-- Phase 1: Problem Understanding -->
             <div class="phase">
-                <div class="phase-title">📚 Phase 1: Understanding the Core Problem</div>
+                <div class="phase-title">📚 Phase 1: Understanding the Landscape</div>
                 <div class="options">
-                    <div class="option-box explored">
-                        <div class="status-badge">✓</div>
-                        <div class="option-title">Catastrophic Forgetting</div>
-                        <div class="option-desc">Neural networks forget old tasks when learning new ones</div>
+                    <div class="option-box">
+                        <div class="option-title"><span>❗</span>The Core Problem</div>
+                        <div class="option-desc">The primary challenge in this field is <strong>Catastrophic Forgetting</strong>, where deep neural networks forget previously learned knowledge upon learning new tasks.</div>
                     </div>
-                    <div class="option-box explored">
-                        <div class="status-badge">✓</div>
-                        <div class="option-title">Continual Learning</div>
-                        <div class="option-desc">Learning sequences of tasks without forgetting</div>
-                    </div>
-                    <div class="option-box explored">
-                        <div class="status-badge">✓</div>
-                        <div class="option-title">Real-world Impact</div>
-                        <div class="option-desc">Critical for AI systems in dynamic environments</div>
+                    <div class="option-box">
+                        <div class="option-title"><span>🎯</span>The Goal</div>
+                        <div class="option-desc">The objective is to achieve <strong>Continual Learning</strong>: enabling models to learn sequentially from a stream of data, accumulating knowledge over time.</div>
                     </div>
                 </div>
-                <div class="arrow">⬇️</div>
+                 <div class="justification">
+                    <strong>Key Insight:</strong> A foundational understanding was built upon comprehensive survey papers that map out the key challenges and the primary families of solutions.
+                </div>
             </div>
+            <div class="arrow">⬇️</div>
 
-            <!-- Phase 2: Solution Family Exploration -->
             <div class="phase">
-                <div class="phase-title">🔍 Phase 2: Exploring Solution Families</div>
+                <div class="phase-title">🧭 Phase 2: Evaluating Foundational Strategies</div>
                 <div class="options">
-                    <div class="option-box rejected">
-                        <div class="status-badge">✗</div>
-                        <div class="option-title">Regularization Methods</div>
-                        <div class="option-desc">EWC, LwF - Good but limited scalability</div>
+                    <div class="option-box">
+                        <div class="option-title"><span>⚖️</span>Regularization</div>
+                        <div class="option-desc">Methods like EWC protect important weights from previous tasks.</div>
+                        <div class="justification"><strong>Verdict: Promising but Limited.</strong> Research (e.g., van de Ven & Tolias, 2019) shows these methods often struggle in challenging Class-Incremental scenarios where task boundaries are blurry.</div>
                     </div>
-                    <div class="option-box selected">
-                        <div class="status-badge">✓</div>
-                        <div class="option-title">Rehearsal Methods</div>
-                        <div class="option-desc">Store & replay examples - Most promising</div>
+                    <div class="option-box">
+                        <div class="option-title"><span>📚</span>Rehearsal</div>
+                        <div class="option-desc">Storing and replaying a small subset of past data (exemplars).</div>
+                        <div class="justification"><strong>Verdict: Most Effective Baseline.</strong> This approach has consistently shown strong performance and robustness, making it a powerful and practical foundation to build upon.</div>
                     </div>
-                    <div class="option-box rejected">
-                        <div class="status-badge">✗</div>
-                        <div class="option-title">Architectural Methods</div>
-                        <div class="option-desc">Dynamic networks - Complex implementation</div>
+                    <div class="option-box">
+                        <div class="option-title"><span>🏗️</span>Architectural</div>
+                        <div class="option-desc">Dynamically expanding the network for new tasks.</div>
+                        <div class="justification"><strong>Verdict: Impractical for Project Scope.</strong> While effective, these methods often introduce significant complexity and memory overhead, making them less suitable for this project.</div>
                     </div>
                 </div>
-                <div class="arrow">⬇️</div>
             </div>
+            <div class="arrow">⬇️</div>
 
-            <!-- Phase 3: Rehearsal Method Deep Dive -->
             <div class="phase">
-                <div class="phase-title">🎯 Phase 3: Deep Dive into Rehearsal Methods</div>
-                <div class="options">
-                    <div class="option-box explored">
-                        <div class="status-badge">✓</div>
-                        <div class="option-title">Experience Replay</div>
-                        <div class="option-desc">Random sampling - Simple but inefficient</div>
-                    </div>
-                    <div class="option-box selected">
-                        <div class="status-badge">✓</div>
-                        <div class="option-title">iCaRL</div>
-                        <div class="option-desc">Intelligent exemplar selection - Strong baseline</div>
-                    </div>
-                    <div class="option-box explored">
-                        <div class="status-badge">✓</div>
-                        <div class="option-title">GEM/A-GEM</div>
-                        <div class="option-desc">Gradient constraints - Complex optimization</div>
-                    </div>
-                </div>
-                <div class="arrow">⬇️</div>
-            </div>
-
-            <!-- Phase 4: Identifying the Gap -->
-            <div class="phase">
-                <div class="phase-title">🔍 Phase 4: Identifying the Research Gap</div>
+                <div class="phase-title">🔍 Phase 3: Identifying a Gap in the Strongest Approach</div>
                 <div class="reasoning">
-                    <h3>🤔 Critical Observation</h3>
-                    <p><strong>Problem:</strong> Current rehearsal methods use fixed strategies - they replay exemplars at regular intervals or with constant intensity, regardless of whether the model is actually forgetting or performing well.</p>
-                    <p><strong>Insight:</strong> What if we could make rehearsal <em>adaptive</em>? Only trigger intensive rehearsal when the model shows signs of forgetting!</p>
+                    <h3>🤔 Critical Observation on Rehearsal Methods (like iCaRL)</h3>
+                    <p>After selecting Rehearsal as the most promising strategy and studying its state-of-the-art implementation in papers like <strong>iCaRL</strong> (Rebuffi et al., 2017), a key limitation was identified:</p>
+                    <p><strong>The Inefficiency of Constant Rehearsal:</strong> Existing methods employ a *static* rehearsal strategy. They constantly replay exemplars with a fixed intensity, regardless of whether the model is actually forgetting. This is computationally wasteful, analogous to studying flashcards for a subject you already know perfectly.</p>
                 </div>
-                <div class="arrow">⬇️</div>
             </div>
+             <div class="arrow">⬇️</div>
 
-            <!-- Phase 5: Solution Component Search -->
             <div class="phase">
-                <div class="phase-title">⚡ Phase 5: Searching for the Missing Piece</div>
-                <div class="options">
-                    <div class="option-box rejected">
-                        <div class="status-badge">✗</div>
-                        <div class="option-title">Validation Accuracy</div>
-                        <div class="option-desc">Simple but noisy & requires extra data</div>
-                    </div>
-                    <div class="option-box rejected">
-                        <div class="status-badge">✗</div>
-                        <div class="option-title">Gradient Changes</div>
-                        <div class="option-desc">Computationally expensive monitoring</div>
-                    </div>
-                    <div class="option-box selected">
-                        <div class="status-badge">✓</div>
-                        <div class="option-title">Concept Drift Detection</div>
-                        <div class="option-desc">ADWIN - Perfect for detecting performance drops!</div>
-                    </div>
+                 <div class="phase-title">💡 Phase 4: Formulating a Novel Hypothesis</div>
+                 <div class="reasoning">
+                    <h3>⚡ The "Aha!" Moment: Connecting Two Fields</h3>
+                     <p>The identified gap (inefficient rehearsal) led to a crucial question: "How can a system know *when* it's starting to forget?"</p>
+                     <p>The answer lies in a different but related field: **Stream Mining**. This field has developed robust algorithms for **Concept Drift Detection**—methods designed to detect when the statistical properties of a data stream change. By re-framing "forgetting" as a drop in performance on past tasks, we can see it as a form of concept drift.</p>
                 </div>
-                <div class="arrow">⬇️</div>
             </div>
+            <div class="arrow">⬇️</div>
 
-            <!-- Final Solution -->
             <div class="final-solution">
-                <h2>🎉 Final Innovation: Smart Rehearsal System</h2>
-                <p>An adaptive rehearsal mechanism that intelligently triggers intensive memory replay only when concept drift is detected, combining the best of both worlds.</p>
+                <h2>🎉 Proposed Innovation: "Smart Rehearsal"</h2>
+                <div class="hypothesis">
+                    <strong>Project Hypothesis:</strong>
+                    By integrating a formal concept drift detector (ADWIN) to monitor model performance on past tasks, we can create an adaptive "Smart Rehearsal" system. This system will trigger intensive rehearsal only when forgetting is detected, achieving comparable accuracy to standard rehearsal methods but with significantly lower computational cost.
+                </div>
                 
                 <div class="components">
                     <div class="component">
-                        <h4>📊 Watchdog Set</h4>
-                        <p>Small exemplar set for continuous monitoring</p>
+                        <h4>iCaRL Rehearsal Core</h4>
+                        <p>Provides the strong, proven baseline for storing and replaying exemplars.</p>
                     </div>
                     <div class="component">
-                        <h4>🚨 ADWIN Detector</h4>
-                        <p>Real-time drift detection on watchdog performance</p>
+                        <h4>Concept Drift Detector</h4>
+                        <p>Acts as an efficient, real-time "forgetting alarm" by monitoring performance.</p>
                     </div>
                     <div class="component">
-                        <h4>🔄 Adaptive Rehearsal</h4>
-                        <p>Triggered intensive replay with main exemplar set</p>
+                        <h4>Adaptive Trigger</h4>
+                        <p>Connects the two components to initiate "rehearsal bursts" only when necessary.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Implementation Roadmap -->
             <div class="roadmap">
-                <h3>🗺️ Implementation Roadmap</h3>
-                <div class="roadmap-steps">
-                    <div class="roadmap-step">
-                        <span class="step-number">1</span>
-                        <strong>Foundation Study:</strong> Master continual learning survey (Parisi et al., 2019)
-                    </div>
-                    <div class="roadmap-step">
-                        <span class="step-number">2</span>
-                        <strong>Rehearsal Mastery:</strong> Implement and understand iCaRL (Rebuffi et al., 2017)
-                    </div>
-                    <div class="roadmap-step">
-                        <span class="step-number">3</span>
-                        <strong>Drift Detection:</strong> Master ADWIN algorithm from River library
-                    </div>
-                    <div class="roadmap-step">
-                        <span class="step-number">4</span>
-                        <strong>Integration:</strong> Design and implement Smart Rehearsal system
-                    </div>
-                    <div class="roadmap-step">
-                        <span class="step-number">5</span>
-                        <strong>Evaluation:</strong> Compare against baselines on standard benchmarks
-                    </div>
-                    <div class="roadmap-step">
-                        <span class="step-number">6</span>
-                        <strong>Analysis:</strong> Investigate when/why the system works best
-                    </div>
-                </div>
+                <h3>🗺️ Project Timeline & Deliverables</h3>
+                <ol class="roadmap-steps">
+                    <li>
+                        <div class="step-number">1</div>
+                        <div class="step-content"><strong>Foundation & Baseline (Sept - Oct 2025):</strong> Master foundational papers and implement a standard iCaRL model as a performance baseline.</div>
+                    </li>
+                    <li>
+                        <div class="step-number">2</div>
+                        <div class="step-content"><strong>Hybrid Model Development (Nov 2025):</strong> Integrate the ADWIN drift detector from the `river` library into the iCaRL framework to create the "Smart Rehearsal" system.</div>
+                    </li>
+                    <li>
+                        <div class="step-number">3</div>
+                        <div class="step-content"><strong>Experimentation & Analysis (Dec 2025):</strong> Conduct comparative experiments on standard benchmarks (e.g., Split CIFAR-10) to measure both accuracy and computational efficiency.</div>
+                    </li>
+                     <li>
+                        <div class="step-number">4</div>
+                        <div class="step-content"><strong>Final Report & Presentation (Jan 2026):</strong> Document the methodology, analyze results, and present the findings, highlighting the efficiency gains of the proposed model.</div>
+                    </li>
+                </ol>
             </div>
+
+             <section id="references">
+                <h3>📚 Key References</h3>
+                <ul>
+                    <li>[1] Rebuffi, S. A., Kolesnikov, A., Sperl, G., & Lampert, C. H. (2017). iCaRL: Incremental Classifier and Representation Learning. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition (CVPR)</em>.</li>
+                    <li>[2] van de Ven, G. M., & Tolias, A. S. (2019). Three scenarios for continual learning. <em>arXiv preprint arXiv:1904.07734</em>.</li>
+                    <li>[3] Bifet, A., & Gavaldà, R. (2007). Learning from time-changing data with adaptive windowing. In <em>Proceedings of the 2007 SIAM international conference on data mining</em>. (This is the original paper for ADWIN).</li>
+                     <li>[4] Montiel, J., Read, J., Bifet, A., & Abdessalem, T. (2021). River: machine learning for streaming data in Python. <em>Journal of Machine Learning Research</em>.</li>
+                </ul>
+            </section>
         </div>
     </div>
-
-    <script>
-        // Add some interactive hover effects
-        document.querySelectorAll('.option-box').forEach(box => {
-            box.addEventListener('mouseenter', function() {
-                if (this.classList.contains('selected')) {
-                    this.style.transform = 'translateY(-8px) scale(1.05)';
-                    this.style.boxShadow = '0 15px 35px rgba(40, 167, 69, 0.3)';
-                } else if (this.classList.contains('explored')) {
-                    this.style.transform = 'translateY(-8px) scale(1.05)';
-                    this.style.boxShadow = '0 15px 35px rgba(255, 193, 7, 0.3)';
-                }
-            });
-            
-            box.addEventListener('mouseleave', function() {
-                this.style.transform = '';
-                this.style.boxShadow = '';
-            });
-        });
-
-        // Add animation on page load
-        window.addEventListener('load', function() {
-            const phases = document.querySelectorAll('.phase');
-            phases.forEach((phase, index) => {
-                setTimeout(() => {
-                    phase.style.opacity = '0';
-                    phase.style.transform = 'translateY(30px)';
-                    phase.style.transition = 'all 0.6s ease';
-                    setTimeout(() => {
-                        phase.style.opacity = '1';
-                        phase.style.transform = 'translateY(0)';
-                    }, 100);
-                }, index * 200);
-            });
-        });
-    </script>
 </body>
 </html>
