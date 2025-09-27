@@ -135,4 +135,3 @@ Once the ⚠️ items are uploaded, you can confidently mark the project as comp
 - **Narrative alignment** – In the written report, mirror the README structure (innovation → roadmap → evaluation) so reviewers immediately see the semester-long progression and novel contribution.
 - **Repository hygiene** – Finalise README links, clean temporary notebooks, and update the submission checklist table once the ⚠️ items are addressed to avoid confusion during marking.
 
-With these final touches, the project documentation will accurately reflect the semester of work and emphasise the novelty of combining iCaRL with ADWIN for adaptive rehearsal.
