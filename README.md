@@ -12,10 +12,7 @@ Continual learning systems struggle with **catastrophic forgetting**—models lo
 > **Core Hypothesis**: By combining iCaRL with ADWIN we can build an *adaptive* rehearsal strategy that reacts only when forgetting is detected, preserving accuracy while reducing rehearsal cost.
 
 > 📄 **Mid-Semester Dossier**: A comprehensive narrative covering background, methodology, experimental roadmap, and presentation outline is available in [`docs/mid-semester-review.md`](docs/mid-semester-review.md).
->
-> 🧪 **Phase 1 Baseline Code**: Run the SplitMNIST rehearsal baseline and generate report-ready plots using [`experiments/phase1/rehearsal_baseline.py`](experiments/phase1/rehearsal_baseline.py). Step-by-step instructions live in [`docs/mid-semester-runbook.md`](docs/mid-semester-runbook.md).
->
-> 🚀 **Phase 2 Adaptive Prototype**: Explore the ADWIN-triggered rehearsal workflow via [`experiments/phase2/adaptive_rehearsal.py`](experiments/phase2/adaptive_rehearsal.py) to showcase how concept-drift monitoring informs rehearsal bursts.
+
 
 ---
 

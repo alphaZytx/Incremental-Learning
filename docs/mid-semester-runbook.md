@@ -43,35 +43,7 @@ After the run completes, the following artefacts are produced:
 | `outputs/phase1/phase1_metrics.csv` | CSV view of the same metrics for spreadsheets. |
 | `outputs/phase1/phase1_accuracy.png` | Accuracy curve (only when `--plot` is enabled). |
 
-## 3. Run the Phase 2 Adaptive Prototype
 
-Once the baseline numbers are locked, execute the concept-drift-aware prototype to demonstrate progress toward the Smart Rehearsal vision.
-
-```bash
-python -m experiments.phase2.adaptive_rehearsal \
-    --epochs 3 \
-    --buffer-size 300 \
-    --full-rehearsal-epochs 2 \
-    --plot
-```
-
-### Key Flags
-- `--detector-delta`, `--detector-min-window`, `--detector-fallback-drop`: Tune ADWIN sensitivity (or the fallback heuristic when River is unavailable).
-- `--full-rehearsal-epochs`: Controls how intensive each triggered rehearsal burst becomes.
-- `--light-rehearsal-ratio`: Probability of mixing buffer exemplars during standard SGD updates.
-
-### Output Artefacts
-
-| File | Description |
-| --- | --- |
-| `outputs/phase2/phase2_summary.json` | Combined metrics and drift events for scripted analysis. |
-| `outputs/phase2/phase2_metrics.csv` | Task-level accuracy snapshot mirroring the baseline output for easy comparison. |
-| `outputs/phase2/phase2_events.csv` | Timestamped drift triggers and the number of rehearsal steps executed. |
-| `outputs/phase2/phase2_accuracy.png` | Accuracy curve annotated with detected drifts (requires `--plot`). |
-
-Use these results to illustrate how adaptive rehearsal differs from the static baseline in the mid-semester conversation—e.g., highlight fewer rehearsal bursts while retaining accuracy.
-
-## 4. Comparative Analysis Checklist
 
 To prepare mid-semester slides or documentation:
 
@@ -81,7 +53,7 @@ To prepare mid-semester slides or documentation:
 
 These artefacts become the "before" scenario for the end-semester adaptive experiments.
 
-## 5. Embedding Results in LaTeX
+
 
 1. Copy `outputs/phase1/phase1_accuracy.png` into your report's `figures/` directory.
 2. Reference it in LaTeX:
@@ -96,7 +68,6 @@ These artefacts become the "before" scenario for the end-semester adaptive exper
 3. For tabular metrics, convert the CSV into a LaTeX table using an online converter or the `pandas.DataFrame.to_latex()` method.
 4. Cite relevant literature inline (e.g., \cite{rebuffi2017icarl}) to contextualise the baseline.
 
-## 6. Next Steps (Preview)
 
 - **Phase 2:** Integrate ADWIN monitoring to detect drift triggers.
 - **Phase 3:** Implement adaptive rehearsal policy and rerun experiments.
