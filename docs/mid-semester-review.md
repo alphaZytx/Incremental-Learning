@@ -12,6 +12,7 @@ Catastrophic forgetting remains a central challenge in continual learning: model
 
 ---
 
+
 ## 1. Introduction
 - **Problem Context**: Sequential data streams require models that adapt without revisiting the entire dataset. Traditional deep learning models retrained from scratch are inefficient for such scenarios.
 - **Research Gap**: Rehearsal-based continual learning methods achieve competitive accuracy but treat replay frequency as fixed. This static strategy wastes resources during stable phases and may still miss fast-onset forgetting.
