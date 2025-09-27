@@ -1,0 +1,269 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{titling}
+\usepackage{fancyhdr}
+
+\setlength{\parskip}{0.6em}
+\setlength{\parindent}{0pt}
+
+\pretitle{\begin{center}\LARGE}
+\posttitle{\par\end{center}\vskip 0.5em}
+\preauthor{\begin{center}\large}
+\postauthor{\par\end{center}}
+\predate{\begin{center}\large}
+\postdate{\par\end{center}}
+
+\title{Smart Rehearsal for Continual Learning\\End-Semester Project Report}
+\author{Abhinav}
+\date{December 2025}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Smart Rehearsal Project}
+\lhead{End-Semester Report}
+\cfoot{\thepage}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Catastrophic forgetting remains the central obstacle to dependable continual learning. Static rehearsal pipelines waste compute by replaying exemplars at fixed intervals regardless of model stability. This report presents \emph{Smart Rehearsal}, an adaptive approach that augments an iCaRL-style backbone with the Adaptive Windowing (ADWIN) concept-drift detector. When monitored metrics deteriorate, the system triggers intensive rehearsal bursts; when performance is stable, it conserves compute. We document the project motivation, architecture, experimental phases, comparative evidence, and a roadmap for future research and deployment.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\subsection{Problem Motivation}
+Continual learning models must assimilate new information without catastrophic forgetting of prior tasks. Rehearsal-based strategies mitigate forgetting by replaying exemplars, yet they often do so at a constant cadence that disregards the model's instantaneous stability.
+
+\subsection{Research Gap}
+Concept-drift detection is widely studied in streaming-data literature but seldom integrated with deep rehearsal pipelines. Bridging this gap enables compute-aware continual learning that reacts proportionally to observed performance changes.
+
+\subsection{Objectives}
+\begin{enumerate}[label=\textbf{O\arabic*}]
+    \item Design a modular adaptive rehearsal pipeline that couples iCaRL with ADWIN.
+    \item Empirically compare fixed-rate and adaptive rehearsal across multiple benchmarks.
+    \item Produce professional documentation, comparative artefacts, and reproducible tooling for the final evaluation.
+\end{enumerate}
+
+\section{Project Overview}
+\subsection{Narrative Timeline}
+\begin{itemize}
+    \item \textbf{Phase 1} --- Establish rehearsal baselines and logging conventions.
+    \item \textbf{Phase 2} --- Integrate ADWIN-based drift detection and targeted rehearsal bursts.
+    \item \textbf{Phase 3} --- Deliver a modular Smart Rehearsal pipeline with configuration dataclasses, telemetry hooks, and fail-safes.
+    \item \textbf{Aggregation Suite} --- Summarise metrics and comparisons into Markdown/JSON for direct report inclusion.
+\end{itemize}
+
+\subsection{Reference Artefacts}
+Key scripts reside within the repository for reproducibility:
+\begin{center}
+    \begin{tabular}{p{0.18\textwidth}p{0.3\textwidth}p{0.38\textwidth}}
+        \toprule
+        \textbf{Phase} & \textbf{Path} & \textbf{Highlights}\\
+        \midrule
+        Phase 1 & \texttt{experiments/phase1/rehearsal\_baseline.py} & Fixed replay cadence, exemplar buffer analysis, optional accuracy plotting.\\
+        Phase 2 & \texttt{experiments/phase2/adaptive\_rehearsal.py} & ADWIN-triggered rehearsal bursts, drift event logs, compute counters.\\
+        Phase 3 & \texttt{experiments/phase3/smart\_rehearsal\_pipeline.py} & Modular configs, telemetry emission, safety fallbacks, JSONL logging.\\
+        Comparison & \texttt{experiments/end\_semester/comparison\_suite.py} & Aggregates metrics, emits Markdown/JSON summaries, exports charts.\\
+        \bottomrule
+    \end{tabular}
+\end{center}
+
+\section{System Architecture}
+\subsection{High-Level Diagram}
+\begin{figure}[H]
+    \centering
+    % Placeholder figure -- replace with final architecture image
+    \fbox{\parbox{0.9\textwidth}{\centering \vspace{3cm}Architecture diagram placeholder\\Insert final workflow figure exported from draw.io or matplotlib}}
+    \caption{Smart Rehearsal pipeline at a glance. Replace the placeholder with the final architecture diagram before submission.}
+    \label{fig:architecture}
+\end{figure}
+
+\subsection{Module Responsibilities}
+\begin{description}[style=nextline]
+    \item[Data Stream Loader] Sequentially feeds task batches (SplitMNIST, Split CIFAR).
+    \item[Backbone Learner] iCaRL-style encoder/classifier with exemplar buffer management.
+    \item[Monitor] Evaluates held-out exemplars; publishes accuracy streams to ADWIN.
+    \item[ADWIN Trigger] Detects statistically significant drops and emits rehearsal requests.
+    \item[Adaptive Manager] Executes rehearsal bursts, rebalances buffers, logs telemetry.
+    \item[Reporting Layer] Produces Markdown/JSON artefacts, charts, and LaTeX-ready tables.
+\end{description}
+
+\section{Methodology}
+\subsection{Phase 1: Baseline Rehearsal}
+\begin{enumerate}[label=\alph*.]
+    \item Train baseline model on incremental tasks using fixed buffer replay.
+    \item Record per-task accuracy, forgetting scores, and exemplar usage statistics.
+    \item Export CSV metrics for later comparison.
+\end{enumerate}
+
+\subsection{Phase 2: Adaptive Rehearsal Prototype}
+\begin{enumerate}[label=\alph*.]
+    \item Integrate ADWIN with validation accuracy streams.
+    \item Trigger rehearsal bursts upon drift detection; log event metadata.
+    \item Compare compute utilisation against Phase 1 using the same datasets.
+\end{enumerate}
+
+\subsection{Phase 3: Smart Rehearsal Pipeline}
+\begin{enumerate}[label=\alph*.]
+    \item Introduce configuration dataclasses for reproducibility.
+    \item Add telemetry hooks for JSONL logging and optional dashboards.
+    \item Implement safety fallbacks (moving-average monitor) for noisy streams.
+\end{enumerate}
+
+\subsection{Aggregation and Analysis}
+The comparison suite reads metrics from previous phases and emits:
+\begin{itemize}
+    \item \textbf{comparison\_report.md} --- Markdown table for direct LaTeX import.
+    \item \textbf{comparison\_report.json} --- Machine-readable summary for dashboards.
+    \item Optional charts saved into \texttt{outputs/plots/} (placeholder paths until generated).
+\end{itemize}
+
+\section{Experimental Design}
+\subsection{Datasets}
+\begin{itemize}
+    \item \textbf{SplitMNIST} for rapid prototyping and debugging.
+    \item \textbf{Split CIFAR-10/100} for substantive evaluation of forgetting and recovery.
+    \item \textbf{Tiny-ImageNet} as a stretch benchmark for additional credit.
+\end{itemize}
+
+\subsection{Metrics}
+\begin{description}[style=nextline]
+    \item[Average Accuracy] After each task.
+    \item[Forgetting] Maximum accuracy drop per task.
+    \item[Replay Cost] Total rehearsal steps and optional GPU time.
+    \item[Drift Responsiveness] Delay between drift detection and accuracy recovery.
+\end{description}
+
+\subsection{Ablation Studies}
+\begin{itemize}
+    \item ADWIN confidence (\(\delta\)) and minimum window length.
+    \item Buffer size variations and exemplar selection strategies.
+    \item Rehearsal burst length vs. recovery effectiveness.
+\end{itemize}
+
+\section{Comparative Analysis}
+\subsection{Quantitative Summary}
+\begin{table}[H]
+    \centering
+    \caption{Sample placeholder table. Replace with exported metrics from \texttt{comparison\_report.md}.}
+    \begin{tabular}{lccc}
+        \toprule
+        \textbf{Configuration} & \textbf{Avg. Accuracy} & \textbf{Forgetting} & \textbf{Replay Cost}\\
+        \midrule
+        Phase 1 Baseline & 0.00 & 0.00 & 0.00\\
+        Phase 2 Adaptive & 0.00 & 0.00 & 0.00\\
+        Phase 3 Smart & 0.00 & 0.00 & 0.00\\
+        \bottomrule
+    \end{tabular}
+    \label{tab:quant}
+\end{table}
+
+\subsection{Visual Evidence}
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering \vspace{3cm}Accuracy comparison plot placeholder\\Insert matplotlib-generated figure from Phase 1--3 runs}}
+    \caption{Accuracy vs. task index for each phase.}
+    \label{fig:accuracy}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering \vspace{3cm}Replay cost histogram placeholder\\Insert bar chart comparing rehearsal steps}}
+    \caption{Replay cost distribution across phases.}
+    \label{fig:replay}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \fbox{\parbox{0.85\textwidth}{\centering \vspace{3cm}Drift timeline placeholder\\Annotate drift detections and recoveries}}
+    \caption{Drift detection timeline for adaptive phases.}
+    \label{fig:drift}
+\end{figure}
+
+\subsection{Qualitative Insights}
+Summarise observations regarding drift sensitivity, compute savings, and any failure cases. Provide narrative paragraphs here once experiments conclude.
+
+\section{Implementation Appendix}
+\subsection{Configuration Snippet}
+\begin{lstlisting}[language=Python, caption={Sample configuration invocation for Phase 3.}]
+from experiments.phase3.smart_rehearsal_pipeline import SmartRehearsalConfig, run_pipeline
+
+config = SmartRehearsalConfig(
+    dataset="split_cifar10",
+    buffer_size=200,
+    detector_delta=0.002,
+    rehearsal_burst_steps=100,
+    log_dir="outputs/phase3/run_001"
+)
+
+run_pipeline(config)
+\end{lstlisting}
+
+\subsection{Reproducibility Checklist}
+\begin{enumerate}[label=\textbf{R\arabic*}]
+    \item Clone repository and install dependencies listed in \texttt{requirements.txt} (to be finalised).
+    \item Run Phase 1 baseline with: \texttt{python -m experiments.phase1.rehearsal\_baseline --epochs 50}.
+    \item Execute adaptive rehearsal: \texttt{python -m experiments.phase2.adaptive\_rehearsal --config configs/adaptive.yaml}.
+    \item Launch smart pipeline: \texttt{python -m experiments.phase3.smart\_rehearsal\_pipeline --config configs/smart.yaml}.
+    \item Aggregate results: \texttt{python -m experiments.end\_semester.comparison\_suite --input outputs/phase\_runs}. 
+    \item Export figures and replace placeholders in Figures~\ref{fig:architecture}--\ref{fig:drift}.
+\end{enumerate}
+
+\subsection{Hardware Summary}
+Document GPU model, CPU, RAM, and software versions used during final experiments.
+
+\section{Risk Assessment and Mitigation}
+\begin{table}[H]
+    \centering
+    \caption{Risks and mitigations. Update impact/probability after final experiments.}
+    \begin{tabular}{p{0.32\textwidth}p{0.22\textwidth}p{0.32\textwidth}}
+        \toprule
+        \textbf{Risk} & \textbf{Impact} & \textbf{Mitigation}\\
+        \midrule
+        ADWIN sensitivity misconfigured & False alarms or missed drifts & Parameter sweep, fallback to moving-average monitor.\\
+        Exemplar buffer overflow & Increased memory footprint & Class-balanced reservoir sampling, dynamic pruning.\\
+        Limited compute budget & Training delays & Early stopping, reduced network width, mixed precision.\\
+        Integration complexity & Prototype slippage & Incremental testing, unit tests for drift triggers.\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\section{Future Work}
+Potential extensions include evaluating alternative drift detectors (DDM, Page-Hinkley), exploring task-free continual learning, automating hyperparameter search, and deploying on constrained hardware for edge scenarios.
+
+\section{Conclusion}
+Smart Rehearsal positions adaptive rehearsal as a practical pathway to reduce compute while preserving accuracy in continual learning. The report, scripts, and aggregation suite collectively prepare the project for a professional end-semester submission.
+
+\section*{References}
+\begin{thebibliography}{9}
+\bibitem{rebuffi2017icarl}
+S.-A. Rebuffi, A. Kolesnikov, G. Sperl, and C. H. Lampert, ``iCaRL: Incremental Classifier and Representation Learning,'' in \emph{CVPR}, 2017.
+
+\bibitem{vandeven2019three}
+G. M. van de Ven and A. S. Tolias, ``Three Scenarios for Continual Learning,'' \emph{arXiv preprint} arXiv:1904.07734, 2019.
+
+\bibitem{bifet2007adwin}
+A. Bifet and R. Gavaldà, ``Learning from Time-Changing Data with Adaptive Windowing,'' in \emph{Proceedings of the 2007 SIAM International Conference on Data Mining}, 2007.
+
+\bibitem{montiel2021river}
+J. Montiel, A. Bifet, J. Read, and T. Abdessalem, ``River: Machine Learning for Streaming Data in Python,'' \emph{Journal of Machine Learning Research}, 2021.
+
+\bibitem{lopezpaz2017gem}
+D. Lopez-Paz and M. Ranzato, ``Gradient Episodic Memory for Continual Learning,'' in \emph{NeurIPS}, 2017.
+\end{thebibliography}
+
+\end{document}

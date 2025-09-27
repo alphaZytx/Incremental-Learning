@@ -13,15 +13,7 @@ Continual learning systems struggle with **catastrophic forgetting**—models lo
 
 ---
 
-## 2. Innovation Statement & Current Idea Review
-
-### What Makes This Project New
-- **Adaptive rehearsal policy**: Instead of replaying exemplars at a fixed cadence, rehearsal bursts are **scheduled dynamically** from ADWIN alarms so the network only revisits the buffer when forgetting is detected. This bridges a gap between continual learning (where rehearsal is rigid) and streaming ML (where alarms are reactive).
-- **Dual signal fusion**: The detector will listen to *both* exemplar validation accuracy and task-specific proxy losses, using multi-metric fusion to reduce false positives. Prior iCaRL implementations rely on a single accuracy signal.
-- **Energy-aware evaluation**: Experiments will not only report accuracy/forgetting but also GPU time and estimated energy cost per task. Demonstrating reduced compute for comparable accuracy substantiates the benefit of adaptive rehearsal.
-- **Open-source tooling**: The codebase will expose modular hooks (detector API, rehearsal scheduler, logging dashboards) so other continual-learning researchers can plug in alternative detectors or buffers.
-
-These additions ensure the work extends beyond reproducing iCaRL or ADWIN individually and documents genuine semester-long exploration.
+## 2. Current Idea Review
 
 | Component | Strengths | Limitations |
 | --- | --- | --- |
@@ -56,72 +48,36 @@ These additions ensure the work extends beyond reproducing iCaRL or ADWIN indivi
 5. **Adaptive Rehearsal Trigger**
    - If *no drift*: continue lightweight rehearsal (minimal or zero replay).
    - If *drift detected*: launch focused rehearsal burst (balanced fine-tuning + exemplar updates).
-6. **Metrics Logger** → Track accuracy, forgetting measure, rehearsal time, compute cost, and detector triggers.
-7. **Analysis & Visualisation** → Compare adaptive vs static rehearsal across tasks with accuracy/forgetting/energy plots.
+6. **Metrics Logger** → Track accuracy, forgetting measure, rehearsal time, compute cost.
+7. **Analysis & Visualisation** → Compare adaptive vs static rehearsal across tasks.
 
 This flow will be implemented modularly so each component can be evaluated independently during development.
 
 ---
 
-## 5. Implementation Roadmap (Technical Breakdown)
-
-| Module | Description | Status (Planned Completion) |
-| --- | --- | --- |
-| **Baseline Core** | PyTorch iCaRL backbone with exemplar memory and balanced fine-tuning. | Weeks 3-5 |
-| **Performance Streamer** | Lightweight service to log validation accuracy/loss to ADWIN. | Weeks 6-7 |
-| **Drift Detector Wrapper** | Calibrated ADWIN thresholds, multi-metric fusion, alarm debouncing. | Weeks 7-8 |
-| **Adaptive Scheduler** | Policy translating alarms into rehearsal burst parameters (epochs, buffer refresh). | Weeks 9-10 |
-| **Experiment Harness** | Scripts for Split CIFAR-10/100, Tiny-ImageNet, energy logging, ablations. | Weeks 10-12 |
-| **Dashboard & Reports** | Visual analytics, LaTeX report templates, reproducibility checklist. | Weeks 12-15 |
-
-This table doubles as a progress tracker; each module will produce intermediate artefacts (notebooks, scripts, plots) to show steady semester-long work.
-
----
-
-## 6. Evaluation Deliverables
+## 5. Evaluation Deliverables
 
 ### Mid-Semester Evaluation (Idea Validation)
 - **Problem Statement & Motivation** – Written summary of catastrophic forgetting and inefficiencies in static rehearsal.
 - **Literature Review Snapshot** – Two-page synthesis of rehearsal and drift-detection approaches with identified gap.
 - **System Design Draft** – Architecture diagram & flow description (Section 4) plus success criteria.
-- **Baseline Plan** – Experimental setup for iCaRL baseline, datasets, evaluation metrics, and energy-measurement protocol.
+- **Baseline Plan** – Experimental setup for iCaRL baseline, datasets, and evaluation metrics.
 - **Expected Outcomes** – Hypothesised benefits (accuracy parity, reduced rehearsal cost) and risk analysis.
 
 ### End-Semester Evaluation (Project Completion)
 - **Implementation Report** – Detailed methodology, modular design, and final algorithm.
-- **Experimental Results** – Tables/plots comparing adaptive vs static rehearsal, including compute metrics and alarm statistics.
+- **Experimental Results** – Tables/plots comparing adaptive vs static rehearsal, including compute metrics.
+- **Comparison Suite Output** – Aggregated JSON + Markdown report from the end-semester toolchain for quick inclusion in documentation.
 - **Ablation & Sensitivity Analysis** – Impact of detector parameters, rehearsal burst size, buffer limits.
 - **Repository Deliverables** – Clean codebase, reproducible scripts, README updates, final presentation slides.
 - **Reflection & Future Work** – Lessons learned, limitations, and potential extensions (e.g., other detectors, task-free settings).
 
 ---
 
-## 7. References & Resources
+## 6. References & Resources
 1. Rebuffi, S. A., Kolesnikov, A., Sperl, G., & Lampert, C. H. (2017). *iCaRL: Incremental Classifier and Representation Learning*. CVPR.
 2. van de Ven, G. M., & Tolias, A. S. (2019). *Three scenarios for continual learning*. arXiv:1904.07734.
 3. Bifet, A., & Gavalda, R. (2007). *Learning from time-changing data with adaptive windowing*. SDM.
 4. Montiel, J., Read, J., Bifet, A., & Abdessalem, T. (2021). *River: Machine learning for streaming data in Python*. JMLR.
 
 ---
-
-> This README will evolve alongside the project. Upcoming additions include experiment trackers, visual dashboards, and links to evaluation reports once submitted.
-
----
-
-## 8. Submission Checklist & Final Notes
-
-### Completion Snapshot
-- **Innovation documented** – Sections 2 and 4 capture the novelty, architectural flow, and justification for fusing iCaRL with ADWIN.
-- **Execution evidence** – Sections 3 and 5 outline the semester roadmap and technical modules delivered, demonstrating sustained work across the term.
-- **Evaluation coverage** – Section 6 itemises mid- and end-semester artefacts so reviewers can trace how outcomes map to assessment criteria.
-
-### Self-Audit Before Marking Complete
-| Item | Status | Evidence & Next Actions |
-| --- | --- | --- |
-| Innovation statement & literature synthesis | ✅ Complete | Sections 2 & 7 summarise the novelty and references backing the hybrid approach. |
-| Architecture & workflow documentation | ✅ Complete | Section 4 diagrams the adaptive rehearsal flow used in code proofs. |
-| Implementation roadmap & progress log | ✅ Complete | Section 5 lists each module with planned completion windows to show semester-long effort. |
-| Experimental artefacts (metrics, plots, energy logs) | ⚠️ Attach | Ensure the final notebooks, tables, and detector alarm statistics are included in the repo/report bundle. |
-| Final report & presentation package | ⚠️ Attach | Link the polished PDF/slide deck once uploaded so evaluators can access them directly. |
-
-Once the ⚠️ items are uploaded, you can confidently mark the project as completed with clear evidence of originality and sustained semester work.
