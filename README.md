@@ -12,7 +12,6 @@ Continual learning systems struggle with **catastrophic forgetting**—models lo
 > **Core Hypothesis**: By combining iCaRL with ADWIN we can build an *adaptive* rehearsal strategy that reacts only when forgetting is detected, preserving accuracy while reducing rehearsal cost.
 
 
-
 ---
 
 ## 2. Current Idea Review
@@ -69,6 +68,7 @@ This flow will be implemented modularly so each component can be evaluated indep
 ### End-Semester Evaluation (Project Completion)
 - **Implementation Report** – Detailed methodology, modular design, and final algorithm.
 - **Experimental Results** – Tables/plots comparing adaptive vs static rehearsal, including compute metrics.
+- **Comparison Suite Output** – Aggregated JSON + Markdown report from the end-semester toolchain for quick inclusion in documentation.
 - **Ablation & Sensitivity Analysis** – Impact of detector parameters, rehearsal burst size, buffer limits.
 - **Repository Deliverables** – Clean codebase, reproducible scripts, README updates, final presentation slides.
 - **Reflection & Future Work** – Lessons learned, limitations, and potential extensions (e.g., other detectors, task-free settings).
