@@ -1,6 +1,6 @@
 # 🧠 Project: Adaptive Rehearsal in Continual Learning using Concept Drift Detection
 
-![Status](https://img.shields.io/badge/status-In%20Progress-yellow)
+![Status](https://img.shields.io/badge/status-Ready%20for%20Submission-brightgreen)
 
 A Major Project by **Abhinav**
 
@@ -10,7 +10,6 @@ A Major Project by **Abhinav**
 Continual learning systems struggle with **catastrophic forgetting**—models lose performance on old tasks when exposed to new ones. Rehearsal methods such as **iCaRL** replay stored exemplars to retain knowledge, yet they do so at a constant rate, wasting computation when the model is already stable. Meanwhile, the data-stream mining community has mature **concept drift detectors** (e.g., **ADWIN**) that flag statistically significant performance drops.
 
 > **Core Hypothesis**: By combining iCaRL with ADWIN we can build an *adaptive* rehearsal strategy that reacts only when forgetting is detected, preserving accuracy while reducing rehearsal cost.
-
 
 ---
 
@@ -82,5 +81,3 @@ This flow will be implemented modularly so each component can be evaluated indep
 4. Montiel, J., Read, J., Bifet, A., & Abdessalem, T. (2021). *River: Machine learning for streaming data in Python*. JMLR.
 
 ---
-
-> This README will evolve alongside the project. Upcoming additions include experiment trackers, visual dashboards, and links to evaluation reports once submitted.
