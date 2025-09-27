@@ -12,15 +12,6 @@ Catastrophic forgetting remains a central challenge in continual learning: model
 
 ---
 
-## Executive Status Overview
-- **Mid-Semester Goal**: Deliver a validated problem statement, baseline reproducibility, and an integration-ready design for the Smart Rehearsal pipeline.
-- **Completed Artefacts**: Literature matrix, baseline ER/GEM scripts, iCaRL backbone draft, ADWIN monitoring prototype notes, project risk log, presentation outline.
-- **In-Progress Focus**: Finalising iCaRL exemplar policy benchmarking and calibrating ADWIN thresholds on synthetic drift streams prior to full pipeline integration.
-- **Upcoming (Pre Mid-Sem Review)**: Assemble annotated architecture diagram, consolidate calibration results into slides, and rehearse the presentation narrative using Appendix A.
-- **Outstanding (Post Mid-Sem Review)**: Implement adaptive trigger loop, run comparative studies, and prepare final reproducibility package ahead of the end-semester evaluation.
-
----
-
 ## 1. Introduction
 - **Problem Context**: Sequential data streams require models that adapt without revisiting the entire dataset. Traditional deep learning models retrained from scratch are inefficient for such scenarios.
 - **Research Gap**: Rehearsal-based continual learning methods achieve competitive accuracy but treat replay frequency as fixed. This static strategy wastes resources during stable phases and may still miss fast-onset forgetting.
@@ -110,7 +101,7 @@ Catastrophic forgetting remains a central challenge in continual learning: model
 - System architecture diagram of Smart Rehearsal pipeline.
 - Baseline reproduction notebooks and logs.
 - ADWIN calibration results on synthetic streams.
-- Phase 2 adaptive rehearsal prototype script with drift-trigger annotations.
+\
 - Project timeline and risk register.
 
 ---
