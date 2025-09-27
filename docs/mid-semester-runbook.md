@@ -44,7 +44,6 @@ After the run completes, the following artefacts are produced:
 | `outputs/phase1/phase1_accuracy.png` | Accuracy curve (only when `--plot` is enabled). |
 
 
-
 To prepare mid-semester slides or documentation:
 
 1. **Baseline Table:** Import `phase1_metrics.csv` into Google Sheets/Excel to summarise accuracy after each incremental task.
@@ -52,7 +51,6 @@ To prepare mid-semester slides or documentation:
 3. **Narrative Hooks:** Connect accuracy plateau/drops to hypotheses about static rehearsal.
 
 These artefacts become the "before" scenario for the end-semester adaptive experiments.
-
 
 
 1. Copy `outputs/phase1/phase1_accuracy.png` into your report's `figures/` directory.
