@@ -13,6 +13,7 @@ Continual learning systems struggle with **catastrophic forgetting**—models lo
 
 > 📄 **Mid-Semester Dossier**: A comprehensive narrative covering background, methodology, experimental roadmap, and presentation outline is available in [`docs/mid-semester-review.md`](docs/mid-semester-review.md).
 
+
 ---
 
 ## 2. Current Idea Review
