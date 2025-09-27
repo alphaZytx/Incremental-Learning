@@ -53,7 +53,6 @@ To prepare mid-semester slides or documentation:
 These artefacts become the "before" scenario for the end-semester adaptive experiments.
 
 
-
 1. Copy `outputs/phase1/phase1_accuracy.png` into your report's `figures/` directory.
 2. Reference it in LaTeX:
    ```latex

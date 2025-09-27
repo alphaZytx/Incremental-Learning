@@ -101,7 +101,6 @@ Catastrophic forgetting remains a central challenge in continual learning: model
 - System architecture diagram of Smart Rehearsal pipeline.
 - Baseline reproduction notebooks and logs.
 - ADWIN calibration results on synthetic streams.
-\
 - Project timeline and risk register.
 
 ---
