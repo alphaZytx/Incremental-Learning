@@ -43,7 +43,7 @@ After the run completes, the following artefacts are produced:
 | `outputs/phase1/phase1_metrics.csv` | CSV view of the same metrics for spreadsheets. |
 | `outputs/phase1/phase1_accuracy.png` | Accuracy curve (only when `--plot` is enabled). |
 
-## 3. Comparative Analysis Checklist
+
 
 To prepare mid-semester slides or documentation:
 
@@ -53,7 +53,7 @@ To prepare mid-semester slides or documentation:
 
 These artefacts become the "before" scenario for the end-semester adaptive experiments.
 
-## 4. Embedding Results in LaTeX
+
 
 1. Copy `outputs/phase1/phase1_accuracy.png` into your report's `figures/` directory.
 2. Reference it in LaTeX:
@@ -68,7 +68,6 @@ These artefacts become the "before" scenario for the end-semester adaptive exper
 3. For tabular metrics, convert the CSV into a LaTeX table using an online converter or the `pandas.DataFrame.to_latex()` method.
 4. Cite relevant literature inline (e.g., \cite{rebuffi2017icarl}) to contextualise the baseline.
 
-## 5. Next Steps (Preview)
 
 - **Phase 2:** Integrate ADWIN monitoring to detect drift triggers.
 - **Phase 3:** Implement adaptive rehearsal policy and rerun experiments.
